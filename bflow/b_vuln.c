@@ -30,7 +30,7 @@ int main(int argc, char **argv)
         a++;
     }
     fprintf(alpha,f);
-    char *delt = (char) **size;
+    
     printf(delt);
     return 0;
 }
