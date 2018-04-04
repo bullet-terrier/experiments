@@ -92,6 +92,10 @@ def parse_index2(index_list, sub_slices = None):
     if sys.version[0] is '2': op_list = l_copy(index_list);
     else: 
         op_list = index_list.copy() # using index_list.copy() to make this thread safe.
+    # non integer characters are going to throw issues now. Hope you have fun lol
+    for a in op_list:
+        print(a)
+        op_list[op_list.index(a)] = int(a);
         #print("l_copy !it")    
     op_list.sort();
     op_list.reverse(); # We'll use a pop() method to work through the stack.
@@ -141,6 +145,9 @@ def parse_index(index_list, sub_slices = None):
         op_list = index_list.copy() # using index_list.copy() to make this thread safe.
         #print("l_copy !it")
     else: op_list = l_copy(index_list);
+    for a in op_list:
+        op_list[op_list.index(a)] = int(a);
+        print(a);
     op_list.sort();
     op_list.reverse(); # We'll use a pop() method to work through the stack.
     slice_list = [];
@@ -148,11 +155,12 @@ def parse_index(index_list, sub_slices = None):
     while len(op_list) > 0:
         curr_index = op_list.pop(); # get the initial index;
         if iter_count is 0: #use special case 1)
-            slice_list.append(("",curr_index));
+            slice_list.append(("",str(curr_index)));
         elif len(op_list) is 0:
-            slice_list.append((curr_index,""));
+            slice_list.append(str(last_index),str(curr_index));
+            slice_list.append((str(curr_index),""));
         else:
-            slice_list.append((last_index,curr_index));
+            slice_list.append((str(last_index),str(curr_index)));
         last_index=  curr_index;
         iter_count+=1
     n = time.time()-z;
@@ -162,7 +170,11 @@ def parse_index(index_list, sub_slices = None):
 if __name__=="__main__":
     print(time.strftime("%H:%M:%S"));
     st = time.time();
-    parse_index(sys.argv);
+    ls = sys.argv[1:];
+    for i in range(0,len(ls)):
+        ls[i]= int(ls[i]);
+    x = parse_index(sys.argv[1:]);
     fn = time.time();
+    print(x)
     print("Time taken: %s seconds"%(fn-st));
     
