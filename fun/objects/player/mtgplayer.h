@@ -72,6 +72,23 @@ PLAYER edh_initialize(char name)
     return player_;
 }
 
+// update methods - might consolidate into one w/ flow control
+void update_life( PLAYER *player, int life)
+{
+    player->life = player->life + life;
+}
+
+void update_poison( PLAYER *player, int poison)
+{
+    player->poison = player->poison + poison;
+}
+
+void update_command( PLAYER *player, int command)
+{
+    player->commander = player->commander + command;
+}
+
+
 /*
   Pass in a string to update the player name with the name data.
   
@@ -85,36 +102,3 @@ void update_name( PLAYER *player, char* name)
     //return player;
 }
 #endif
-// TEST MAIN:
-// this works to handle the player allocation.
-void main(int argc, char **argv)
-{
-    // currently setting a static maximum for the number of players in this main loop.
-    PLAYER game[20];
-    PLAYER pint;
-    // should probably initialize based on the size of the integer/index...
-    // generating a test- don't need to do too much.
-    if(argc>20){argc = 20;}
-    for(int i = 1;i<argc;i++)
-    {
-        // might change this to use an actual player value- not a reference.
-        pint = edh_initialize(*argv[i]);
-        //strcpy(pint.name, argv[i]); // This works to assign the name.
-        PLAYER* ptr = &pint;
-        // I keep for getting the & operator for making pointers..
-        //memcpy(ptr,&pint,sizeof(pint)); // maybe this will work.
-        update_name((PLAYER *)ptr, argv[i]); // trying to pass the pointer to pint.
-        printf("Player poison counters: %d life: %d on %s\n",pint.poison, pint.life ,pint.name);
-        pint.poison+=10;
-        update_name((PLAYER *)ptr, argv[argc-i]);
-        printf("Player poison counters: %d on %s\n",pint.poison, pint.name);
-        game[i] = (PLAYER)pint;
-    }
-    for(int i = 1;i<argc;i++)
-    {
-        PLAYER tmp;
-        // trying to set this up to run as a "PLAYER" pointer?
-        tmp = (PLAYER)game[i];
-        printf("Player (%d/%d): life: %d\n",i,player_count,tmp.life); // might be an effective pointer use.
-    }
-}
