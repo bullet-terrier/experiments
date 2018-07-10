@@ -10,11 +10,11 @@
 */
 
 // they include windows to start - we don't have that. Immediate deviation.
-//#include <GL/glut.h> // GLUT, include glu.h and gl.h -- their note.
+#include <GL/glut.h> // GLUT, include glu.h and gl.h -- their note.
 //include <glu.h>
 //include <gl.h>
 // trying again
-#include <glut.h>
+//include <glut.h>
 /*
   Handle window-repoaint event. Call when the window appears/needs repainting.
   -- seems useful.
