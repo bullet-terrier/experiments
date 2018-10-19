@@ -1,0 +1,2 @@
+#define REQUIRE_BUFFSIZE
+
